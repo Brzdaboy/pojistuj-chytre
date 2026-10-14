@@ -68,14 +68,17 @@ p{margin:0}
 @media (max-width:980px){
   .header .btn{margin-left:auto}
   .js .menu-toggle{display:block;margin-left:0}
+  .js .header .btn{display:none}
   .js .nav{position:absolute;left:0;right:0;top:100%;background:#f2e2c2;border-bottom:3px solid var(--ink);display:none}
   .js .nav.open{display:block}
   .js .nav ul{flex-direction:column;padding:8px var(--gutter) 16px}
   .js .nav a{padding:14px 12px;font-size:19px}
+  .js .nav-cta{display:block;padding:4px var(--gutter) 16px}
   .nav ul{flex-wrap:wrap}
   .header .wrap{flex-wrap:wrap}
   html:not(.js) .nav{order:3;width:100%;margin:0 0 8px}
 }
+.nav-cta{display:none}
 @media (max-width:520px){
   .logo img{height:30px}
   .header .btn{padding:0 16px;font-size:15px;min-height:44px}
