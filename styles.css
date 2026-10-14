@@ -134,7 +134,7 @@ p{margin:0}
 .tiles-4{grid-template-columns:repeat(4,1fr)}
 .tile{display:flex;flex-direction:column;gap:12px;background:var(--paper);border:3px solid var(--ink);border-radius:var(--radius-l);padding:26px 24px 24px;color:var(--ink);text-decoration:none;min-width:0;transition:transform .15s,box-shadow .15s}
 a.tile:hover{transform:translateY(-4px);box-shadow:0 6px 0 var(--ink)}
-.tile-icon{width:72px;height:72px;border-bottom:5px solid var(--ink);padding-bottom:4px;box-sizing:content-box}
+.tile-icon{width:72px;height:72px}
 .tile p{color:var(--muted);font-size:17px}
 .tile .more{margin-top:auto;padding-top:6px;font:700 17px/1 var(--font-head);color:var(--navy)}
 @media (max-width:1000px){.tiles-4{grid-template-columns:repeat(2,1fr)}}
