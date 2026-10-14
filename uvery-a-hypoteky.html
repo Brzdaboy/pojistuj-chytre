@@ -53,36 +53,112 @@
   </div>
 </div></section>
 
-<section class="section" id="kalkulacka"><div class="wrap">
+<section class="section section-sand" id="kalkulacka"><div class="wrap">
   <div class="section-head">
-    <h2>Kolik by vás mohl stát úvěr?</h2>
-    <p>Hrubá orientace. Skutečná sazba závisí na vaší situaci a nabídce poskytovatele.</p>
+    <h2>Spočítejte si to sami</h2>
+    <p>Zadejte svou částku, sazbu a dobu splácení. Nebo porovnejte sazbu, kterou máte dnes, s novou nabídkou.</p>
   </div>
-  <div class="calc-card">
-    <div class="calc-inputs">
-      <div class="calc-field">
-        <div class="calc-label-row"><label for="sl-castka">Výše úvěru</label><output class="calc-value" id="out-castka">200 000 Kč</output></div>
-        <input type="range" class="calc-slider" id="sl-castka" min="20000" max="800000" step="5000" value="200000">
-        <div class="calc-range-ends"><span>20 000 Kč</span><span>800 000 Kč</span></div>
+
+  <div class="calc2-tabs" role="group" aria-label="Typ výpočtu">
+    <button class="calc2-tab" id="tab-pay" type="button" aria-pressed="true">Spočítat splátku</button>
+    <button class="calc2-tab" id="tab-cmp" type="button" aria-pressed="false">Porovnat sazby (konec fixace)</button>
+  </div>
+
+  <!-- Panel 1: splátka -->
+  <div class="calc2-panel" id="panel-pay">
+    <div class="calc2-inputs">
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-amount">Výše úvěru</label>
+          <span class="calc2-num-wrap"><input id="c-amount" type="number" inputmode="decimal" min="100000" max="15000000" step="50000" value="3000000"><span class="calc2-unit">Kč</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Výše úvěru, posuvník" id="sl-amount" min="100000" max="15000000" step="50000" value="3000000">
       </div>
-      <div class="calc-field">
-        <div class="calc-label-row"><label for="sl-doba">Doba splácení</label><output class="calc-value" id="out-doba">48 měsíců</output></div>
-        <input type="range" class="calc-slider" id="sl-doba" min="12" max="96" step="6" value="48">
-        <div class="calc-range-ends"><span>12 měs.</span><span>96 měs.</span></div>
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-rate">Úroková sazba</label>
+          <span class="calc2-num-wrap"><input id="c-rate" type="number" inputmode="decimal" min="0" max="15" step="0.05" value="5"><span class="calc2-unit">% ročně</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Úroková sazba, posuvník" id="sl-rate" min="0" max="15" step="0.05" value="5">
+        <p class="calc2-hint">Sazbu najdete ve smlouvě nebo v nabídce banky.</p>
       </div>
-      <div class="calc-field">
-        <div class="calc-label-row"><label for="sl-sazba">Úroková sazba</label><output class="calc-value" id="out-sazba">8,9 %</output></div>
-        <input type="range" class="calc-slider" id="sl-sazba" min="3" max="20" step="0.1" value="8.9">
-        <div class="calc-range-ends"><span>3 %</span><span>20 %</span></div>
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-years">Doba splácení</label>
+          <span class="calc2-num-wrap"><input id="c-years" type="number" inputmode="decimal" min="1" max="40" step="1" value="30"><span class="calc2-unit">let</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Doba splácení, posuvník" id="sl-years" min="1" max="40" step="1" value="30">
       </div>
     </div>
-    <div class="calc-result" aria-live="polite">
-      <div class="calc-result-item"><span>Měsíční splátka</span><strong id="res-splatka">–</strong></div>
-      <div class="calc-result-item"><span>Celkem zaplatíte</span><strong id="res-celkem">–</strong></div>
-      <div class="calc-result-item"><span>Přeplatek</span><strong id="res-preplatek">–</strong></div>
+    <div class="calc2-results" aria-live="polite">
+      <div class="calc2-main">
+        <span class="calc2-main-label">Měsíční splátka</span>
+        <strong class="calc2-main-value" id="res-pay">–</strong>
+      </div>
+      <div class="calc2-sub">
+        <div class="calc2-sub-item"><span class="calc2-sub-label">Celkem zaplatíte</span><strong class="calc2-sub-value" id="res-total">–</strong></div>
+        <div class="calc2-sub-item"><span class="calc2-sub-label">Z toho úroky</span><strong class="calc2-sub-value" id="res-interest">–</strong></div>
+      </div>
+      <div class="calc2-bar-wrap" aria-hidden="true">
+        <div class="calc2-bar-track"><div class="calc2-bar-fill" id="res-bar" style="width:100%"></div></div>
+        <div class="calc2-bar-labels"><span>Půjčená částka</span><span>Úroky</span></div>
+      </div>
+      <a class="btn btn-primary" href="#formular">Probrat to s námi</a>
     </div>
-    <p class="calc-note">Kalkulačka počítá anuitní splátku. Neslouží jako nabídka ani jako doporučení produktu.</p>
   </div>
+
+  <!-- Panel 2: porovnání sazeb -->
+  <div class="calc2-panel" id="panel-cmp" hidden>
+    <div class="calc2-inputs">
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-bal">Zbývá doplatit</label>
+          <span class="calc2-num-wrap"><input id="c-bal" type="number" inputmode="decimal" min="100000" max="15000000" step="50000" value="2500000"><span class="calc2-unit">Kč</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Zbývá doplatit, posuvník" id="sl-bal" min="100000" max="15000000" step="50000" value="2500000">
+        <p class="calc2-hint">Zůstatek najdete ve výpisu nebo v aplikaci banky.</p>
+      </div>
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-rem">Zbývá splácet</label>
+          <span class="calc2-num-wrap"><input id="c-rem" type="number" inputmode="decimal" min="1" max="40" step="1" value="25"><span class="calc2-unit">let</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Zbývá splácet, posuvník" id="sl-rem" min="1" max="40" step="1" value="25">
+      </div>
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-r1">Sazba, kterou máte dnes</label>
+          <span class="calc2-num-wrap"><input id="c-r1" type="number" inputmode="decimal" min="0" max="15" step="0.05" value="5.5"><span class="calc2-unit">% ročně</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Sazba dnes, posuvník" id="sl-r1" min="0" max="15" step="0.05" value="5.5">
+      </div>
+      <div class="calc2-field">
+        <div class="calc2-field-top">
+          <label for="c-r2">Nová sazba (nabídka)</label>
+          <span class="calc2-num-wrap"><input id="c-r2" type="number" inputmode="decimal" min="0" max="15" step="0.05" value="4.5"><span class="calc2-unit">% ročně</span></span>
+        </div>
+        <input class="calc2-slider" type="range" aria-label="Nová sazba, posuvník" id="sl-r2" min="0" max="15" step="0.05" value="4.5">
+      </div>
+    </div>
+    <div class="calc2-results" aria-live="polite">
+      <div class="calc2-sub">
+        <div class="calc2-sub-item"><span class="calc2-sub-label">Splátka dnes</span><strong class="calc2-sub-value" id="res-pay1">–</strong></div>
+        <div class="calc2-sub-item"><span class="calc2-sub-label">Splátka s novou sazbou</span><strong class="calc2-sub-value" id="res-pay2">–</strong></div>
+      </div>
+      <div class="calc2-main">
+        <span class="calc2-main-label">Rozdíl za měsíc</span>
+        <strong class="calc2-main-value" id="res-diff-month">–</strong>
+      </div>
+      <div class="calc2-sub-item">
+        <span class="calc2-sub-label">Rozdíl za celou zbývající dobu</span>
+        <strong class="calc2-sub-value" id="res-diff-total">–</strong>
+      </div>
+      <p class="calc2-verdict" id="res-verdict"></p>
+      <a class="btn btn-primary" href="#formular">Probrat konec fixace</a>
+    </div>
+  </div>
+
+  <p class="calc2-note">Výpočet je orientační. Počítá s anuitní splátkou a stejnou sazbou po celou dobu splácení, bez poplatků a pojištění. Nejde o nabídku úvěru.</p>
 </div></section>
 
 <section class="section section-navy" id="formular"><div class="wrap contact">

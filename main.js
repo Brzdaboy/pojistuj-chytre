@@ -1,4 +1,4 @@
-// Pojišťuj chytře · mobilní menu, kalkulačka a odeslání formuláře
+// Pojistuj chytre - mobilni menu, kalkulacka a odeslani formulare
 document.documentElement.classList.add('js');
 
 const toggle = document.querySelector('.menu-toggle');
@@ -10,41 +10,108 @@ if (toggle && nav) {
   });
 }
 
-// Kalkulačka úvěru
+// Kalkulacka uveru v2
 (function () {
-  const slCastka = document.getElementById('sl-castka');
-  if (!slCastka) return;
-  const slDoba = document.getElementById('sl-doba');
-  const slSazba = document.getElementById('sl-sazba');
+  if (!document.getElementById('tab-pay')) return;
 
-  function fmt(n) {
-    return n.toLocaleString('cs-CZ') + ' Kč';
+  const fmt = (n) => Math.round(n).toLocaleString('cs-CZ') + ' Kč';
+  function annuity(P, rAnnual, years) {
+    if (!(P > 0) || !(years > 0)) return 0;
+    const n = Math.round(years * 12);
+    const i = rAnnual / 100 / 12;
+    if (i <= 0) return P / n;
+    return P * i / (1 - Math.pow(1 + i, -n));
   }
-  function setFill(el) {
-    const pct = ((+el.value - +el.min) / (+el.max - +el.min) * 100).toFixed(1);
-    el.style.setProperty('--fill', pct + '%');
+  function setFill(slider) {
+    const pct = ((+slider.value - +slider.min) / (+slider.max - +slider.min) * 100).toFixed(1);
+    slider.style.setProperty('--fill', pct + '%');
   }
-  function calc() {
-    const P = +slCastka.value;
-    const n = +slDoba.value;
-    const r = +slSazba.value / 100 / 12;
-    const splatka = r < 0.0001 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
-    const celkem = splatka * n;
-    document.getElementById('out-castka').textContent = fmt(P);
-    document.getElementById('out-doba').textContent = n + ' měsíců';
-    document.getElementById('out-sazba').textContent = (+slSazba.value).toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
-    document.getElementById('res-splatka').textContent = fmt(Math.round(splatka));
-    document.getElementById('res-celkem').textContent = fmt(Math.round(celkem));
-    document.getElementById('res-preplatek').textContent = fmt(Math.round(celkem - P));
-    setFill(slCastka);
-    setFill(slDoba);
-    setFill(slSazba);
+  function syncPair(numInput, slider) {
+    numInput.addEventListener('input', () => {
+      const clamped = Math.min(+slider.max, Math.max(+slider.min, +numInput.value));
+      slider.value = clamped;
+      setFill(slider);
+      recalc();
+    });
+    slider.addEventListener('input', () => {
+      numInput.value = slider.value;
+      setFill(slider);
+      recalc();
+    });
+    setFill(slider);
   }
-  [slCastka, slDoba, slSazba].forEach(function (el) { el.addEventListener('input', calc); });
-  calc();
+
+  // Panel 1 - splatka
+  const inAmount = document.getElementById('c-amount'), slAmount = document.getElementById('sl-amount');
+  const inRate   = document.getElementById('c-rate'),   slRate   = document.getElementById('sl-rate');
+  const inYears  = document.getElementById('c-years'),  slYears  = document.getElementById('sl-years');
+  syncPair(inAmount, slAmount);
+  syncPair(inRate,   slRate);
+  syncPair(inYears,  slYears);
+
+  function calcPay() {
+    const P = +inAmount.value, R = +inRate.value, Y = +inYears.value;
+    const n = Math.round(Y * 12);
+    const m = annuity(P, R, Y);
+    const total = m * n;
+    const interest = Math.max(0, total - P);
+    const pct = total > 0 ? Math.min(100, Math.round(P / total * 100)) : 100;
+    document.getElementById('res-pay').textContent      = fmt(m);
+    document.getElementById('res-total').textContent    = fmt(total);
+    document.getElementById('res-interest').textContent = fmt(interest);
+    document.getElementById('res-bar').style.width      = pct + '%';
+  }
+
+  // Panel 2 - porovnani sazeb
+  const inBal = document.getElementById('c-bal'), slBal = document.getElementById('sl-bal');
+  const inRem = document.getElementById('c-rem'), slRem = document.getElementById('sl-rem');
+  const inR1  = document.getElementById('c-r1'),  slR1  = document.getElementById('sl-r1');
+  const inR2  = document.getElementById('c-r2'),  slR2  = document.getElementById('sl-r2');
+  syncPair(inBal, slBal);
+  syncPair(inRem, slRem);
+  syncPair(inR1,  slR1);
+  syncPair(inR2,  slR2);
+
+  function calcCmp() {
+    const B = +inBal.value, rem = +inRem.value, r1 = +inR1.value, r2 = +inR2.value;
+    const n = Math.round(rem * 12);
+    const p1 = annuity(B, r1, rem), p2 = annuity(B, r2, rem);
+    const d = p1 - p2;
+    document.getElementById('res-pay1').textContent       = fmt(p1);
+    document.getElementById('res-pay2').textContent       = fmt(p2);
+    document.getElementById('res-diff-month').textContent = fmt(Math.abs(d));
+    document.getElementById('res-diff-total').textContent = fmt(Math.abs(d) * n);
+    let verdict;
+    if (Math.round(d) > 0) verdict = 'S nové sazbě byste platili o ' + fmt(d) + ' měsíčně méně.';
+    else if (Math.round(d) < 0) verdict = 'S nové sazbě byste platili o ' + fmt(-d) + ' měsíčně víc.';
+    else verdict = 'Splátka by zůstala stejná.';
+    document.getElementById('res-verdict').textContent = verdict;
+  }
+
+  const mode = { current: 'pay' };
+  function recalc() { mode.current === 'pay' ? calcPay() : calcCmp(); }
+
+  document.getElementById('tab-pay').addEventListener('click', function () {
+    mode.current = 'pay';
+    this.setAttribute('aria-pressed', 'true');
+    document.getElementById('tab-cmp').setAttribute('aria-pressed', 'false');
+    document.getElementById('panel-pay').hidden = false;
+    document.getElementById('panel-cmp').hidden = true;
+    calcPay();
+  });
+  document.getElementById('tab-cmp').addEventListener('click', function () {
+    mode.current = 'cmp';
+    this.setAttribute('aria-pressed', 'true');
+    document.getElementById('tab-pay').setAttribute('aria-pressed', 'false');
+    document.getElementById('panel-cmp').hidden = false;
+    document.getElementById('panel-pay').hidden = true;
+    calcCmp();
+  });
+
+  calcPay();
 }());
 
-// Formulář se skutečně odesílá jen na ostré doméně. Jinde (náhled) rovnou ukáže děkovací stránku.
+// Formular se skutecne odesila jen na ostre domene. Jinde (nahled) rovnou ukaze dekovaci stranku.
 const LIVE = /(^|\.)pojistujchytre\.cz$/.test(location.hostname);
 
 document.querySelectorAll('form.form').forEach((form) => {
