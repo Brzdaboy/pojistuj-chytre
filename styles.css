@@ -78,7 +78,7 @@ p{margin:0}
   .header .wrap{flex-wrap:wrap}
   html:not(.js) .nav{order:3;width:100%;margin:0 0 8px}
 }
-.nav-cta{display:none}
+@media (min-width:981px){.nav-cta{display:none}}
 @media (max-width:520px){
   .logo img{height:30px}
   .header .btn{padding:0 16px;font-size:15px;min-height:44px}
