@@ -296,7 +296,9 @@ a.tile:hover{transform:translateY(-4px);box-shadow:0 6px 0 var(--ink)}
   background:var(--paper);
   border:none;
   box-shadow:0 2px 4px rgba(0,0,0,.08),0 8px 20px rgba(0,0,0,.18),0 20px 40px rgba(0,0,0,.14);
+  color:var(--ink);
 }
+.section-navy .form label{color:var(--ink)}
 .section-navy .form .legal{color:var(--muted)}
 /* Sekundární tlačítko na tmavém bg */
 .section-navy .btn-secondary{color:var(--cream);border-color:rgba(255,255,255,.3)}
