@@ -75,6 +75,7 @@ p{margin:0}
   .js .nav ul{flex-direction:column;padding:8px var(--gutter) 16px}
   .js .nav a{padding:14px 12px;font-size:19px}
   .js .nav-cta{display:block;padding:8px var(--gutter) 20px}
+  .js .nav-cta .btn{display:inline-flex}
   .nav ul{flex-wrap:wrap}
   .header .wrap{flex-wrap:wrap}
   html:not(.js) .nav{order:3;width:100%;margin:0 0 8px}
