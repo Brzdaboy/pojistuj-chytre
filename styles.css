@@ -51,7 +51,7 @@ p{margin:0}
 .on-navy .btn-secondary:hover{background:var(--cream);color:var(--navy)}
 
 /* Hlavička */
-.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--cream);border-bottom:3px solid var(--ink)}
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#f2e2c2;border-bottom:3px solid var(--ink)}
 .header .wrap{display:flex;align-items:center;gap:20px;min-height:76px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font:800 22px/1 var(--font-head);letter-spacing:-.02em;white-space:nowrap}
 .logo svg{width:44px;height:44px;flex:none}
@@ -68,7 +68,7 @@ p{margin:0}
 @media (max-width:980px){
   .header .btn{margin-left:auto}
   .js .menu-toggle{display:block;margin-left:0}
-  .js .nav{position:absolute;left:0;right:0;top:100%;background:var(--cream);border-bottom:3px solid var(--ink);display:none}
+  .js .nav{position:absolute;left:0;right:0;top:100%;background:#f2e2c2;border-bottom:3px solid var(--ink);display:none}
   .js .nav.open{display:block}
   .js .nav ul{flex-direction:column;padding:8px var(--gutter) 16px}
   .js .nav a{padding:14px 12px;font-size:19px}
