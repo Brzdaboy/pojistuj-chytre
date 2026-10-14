@@ -88,7 +88,7 @@ p{margin:0}
 .ground{border-top:var(--ground) solid var(--ink);background:var(--sand);height:40px}
 
 /* Hero */
-.hero{padding-top:clamp(36px,6vw,72px)}
+.hero{padding-top:clamp(36px,6vw,72px);background:#f2e2c2}
 .hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:end}
 .hero-text{display:grid;gap:22px;padding-bottom:clamp(24px,5vw,64px);min-width:0}
 .eyebrow{display:inline-block;justify-self:start;background:var(--honey);color:var(--ink);font:700 13px/1 var(--font-head);letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border-radius:var(--radius-pill)}
