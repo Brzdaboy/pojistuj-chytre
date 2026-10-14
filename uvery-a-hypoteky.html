@@ -54,6 +54,38 @@
   </div>
 </div></section>
 
+<section class="section" id="kalkulacka"><div class="wrap">
+  <div class="section-head">
+    <h2>Kolik by vás mohl stát úvěr?</h2>
+    <p>Hrubá orientace. Skutečná sazba závisí na vaší situaci a nabídce poskytovatele.</p>
+  </div>
+  <div class="calc-card">
+    <div class="calc-inputs">
+      <div class="calc-field">
+        <div class="calc-label-row"><label for="sl-castka">Výše úvěru</label><output class="calc-value" id="out-castka">200 000 Kč</output></div>
+        <input type="range" class="calc-slider" id="sl-castka" min="20000" max="800000" step="5000" value="200000">
+        <div class="calc-range-ends"><span>20 000 Kč</span><span>800 000 Kč</span></div>
+      </div>
+      <div class="calc-field">
+        <div class="calc-label-row"><label for="sl-doba">Doba splácení</label><output class="calc-value" id="out-doba">48 měsíců</output></div>
+        <input type="range" class="calc-slider" id="sl-doba" min="12" max="96" step="6" value="48">
+        <div class="calc-range-ends"><span>12 měs.</span><span>96 měs.</span></div>
+      </div>
+      <div class="calc-field">
+        <div class="calc-label-row"><label for="sl-sazba">Úroková sazba</label><output class="calc-value" id="out-sazba">8,9 %</output></div>
+        <input type="range" class="calc-slider" id="sl-sazba" min="3" max="20" step="0.1" value="8.9">
+        <div class="calc-range-ends"><span>3 %</span><span>20 %</span></div>
+      </div>
+    </div>
+    <div class="calc-result" aria-live="polite">
+      <div class="calc-result-item"><span>Měsíční splátka</span><strong id="res-splatka">–</strong></div>
+      <div class="calc-result-item"><span>Celkem zaplatíte</span><strong id="res-celkem">–</strong></div>
+      <div class="calc-result-item"><span>Přeplatek</span><strong id="res-preplatek">–</strong></div>
+    </div>
+    <p class="calc-note">Kalkulačka počítá anuitní splátku. Neslouží jako nabídka ani jako doporučení produktu.</p>
+  </div>
+</div></section>
+
 <section class="section section-sand" id="formular"><div class="wrap contact">
   <div class="contact-side">
     <h2>Pošlete nám smlouvu. Když je dobrá, řekneme vám to.</h2>

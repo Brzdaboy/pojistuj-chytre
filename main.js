@@ -1,4 +1,4 @@
-// Pojišťuj chytře · mobilní menu a odeslání formuláře
+// Pojišťuj chytře · mobilní menu, kalkulačka a odeslání formuláře
 document.documentElement.classList.add('js');
 
 const toggle = document.querySelector('.menu-toggle');
@@ -9,6 +9,40 @@ if (toggle && nav) {
     toggle.setAttribute('aria-expanded', String(open));
   });
 }
+
+// Kalkulačka úvěru
+(function () {
+  const slCastka = document.getElementById('sl-castka');
+  if (!slCastka) return;
+  const slDoba = document.getElementById('sl-doba');
+  const slSazba = document.getElementById('sl-sazba');
+
+  function fmt(n) {
+    return n.toLocaleString('cs-CZ') + ' Kč';
+  }
+  function setFill(el) {
+    const pct = ((+el.value - +el.min) / (+el.max - +el.min) * 100).toFixed(1);
+    el.style.setProperty('--fill', pct + '%');
+  }
+  function calc() {
+    const P = +slCastka.value;
+    const n = +slDoba.value;
+    const r = +slSazba.value / 100 / 12;
+    const splatka = r < 0.0001 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    const celkem = splatka * n;
+    document.getElementById('out-castka').textContent = fmt(P);
+    document.getElementById('out-doba').textContent = n + ' měsíců';
+    document.getElementById('out-sazba').textContent = (+slSazba.value).toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+    document.getElementById('res-splatka').textContent = fmt(Math.round(splatka));
+    document.getElementById('res-celkem').textContent = fmt(Math.round(celkem));
+    document.getElementById('res-preplatek').textContent = fmt(Math.round(celkem - P));
+    setFill(slCastka);
+    setFill(slDoba);
+    setFill(slSazba);
+  }
+  [slCastka, slDoba, slSazba].forEach(function (el) { el.addEventListener('input', calc); });
+  calc();
+}());
 
 // Formulář se skutečně odesílá jen na ostré doméně. Jinde (náhled) rovnou ukáže děkovací stránku.
 const LIVE = /(^|\.)pojistujchytre\.cz$/.test(location.hostname);
