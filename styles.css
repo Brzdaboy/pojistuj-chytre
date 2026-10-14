@@ -53,8 +53,8 @@ p{margin:0}
 /* Hlavička */
 .header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#f2e2c2;border-bottom:3px solid var(--ink)}
 .header .wrap{display:flex;align-items:center;gap:20px;min-height:76px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font:800 22px/1 var(--font-head);letter-spacing:-.02em;white-space:nowrap}
-.logo svg{width:44px;height:44px;flex:none}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo img{height:36px;width:auto;flex:none}
 .nav{margin-left:auto}
 .nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
 .nav a{display:block;padding:10px 12px;border-radius:var(--radius-s);text-decoration:none;color:var(--ink);font-weight:500;font-size:17px}
@@ -77,12 +77,11 @@ p{margin:0}
   html:not(.js) .nav{order:3;width:100%;margin:0 0 8px}
 }
 @media (max-width:520px){
-  .logo span{font-size:18px}
-  .logo svg{width:38px;height:38px}
+  .logo img{height:30px}
   .header .btn{padding:0 16px;font-size:15px;min-height:44px}
   .header .wrap{gap:10px}
 }
-@media (max-width:380px){.logo span{display:none}}
+@media (max-width:380px){.logo img{height:26px}}
 
 /* Linka země */
 .ground{border-top:var(--ground) solid var(--ink);background:var(--sand);height:40px}
@@ -261,13 +260,7 @@ a.tile:hover{transform:translateY(-4px);box-shadow:0 6px 0 var(--ink)}
 .footer ul li{color:#94A3B8}
 .footer a{color:#94A3B8;text-decoration:none;transition:color .15s}
 .footer a:hover{color:var(--cream)}
-/* Logo */
-.footer .logo{color:var(--cream);gap:12px}
-.footer .logo span{font-size:19px}
-.footer .logo svg path:nth-child(2){fill:var(--cream)}
-.footer .logo svg rect{fill:#162240}
-.footer .logo:hover{color:var(--honey)}
-.footer .logo:hover svg path:nth-child(2){fill:var(--honey)}
+.footer .logo img{height:38px}
 /* Claim: cream #FBF4E6 na #162240 = 15:1 ✓ */
 .footer .claim{font:700 17px/1.55 var(--font-body);color:var(--cream);opacity:.55;margin-top:16px;max-width:28ch}
 /* Legal: #7E8FA6 na #162240 = 5.2:1 ✓ */
