@@ -372,3 +372,9 @@ input[type="range"].calc-slider:focus-visible{outline:3px solid var(--honey);out
 .calc2-note{font-size:14px;color:var(--muted);margin-top:16px;max-width:80ch}
 .calc2-results .btn{align-self:flex-start;margin-top:auto}
 @media (max-width:640px){.calc2-num-wrap input[type="number"]{width:110px;font-size:17px}}
+
+/* Scroll reveal */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.revealed{opacity:1;transform:none}
+}

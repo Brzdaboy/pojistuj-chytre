@@ -111,6 +111,28 @@ if (toggle && nav) {
   calcPay();
 }());
 
+// Scroll reveal
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const sel='.section-head,.tile,.steps li,.checks li,.review,.facts,.strip,.phones,.person,.pension,.contact-side,.form';
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll(sel).forEach(el=>{
+    if(el.closest('.hero')) return;
+    el.classList.add('reveal');
+    obs.observe(el);
+  });
+  document.querySelectorAll('.tiles,.steps,.checks,.reviews').forEach(parent=>{
+    [...parent.children].forEach((child,i)=>{
+      if(child.classList.contains('reveal')) child.style.transitionDelay=(i*.1)+'s';
+    });
+  });
+}());
+
 // Formular se skutecne odesila jen na ostre domene. Jinde (nahled) rovnou ukaze dekovaci stranku.
 const LIVE = /(^|\.)pojistujchytre\.cz$/.test(location.hostname);
 
