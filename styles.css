@@ -228,9 +228,10 @@ a.tile:hover{transform:translateY(-4px);box-shadow:0 6px 0 var(--ink)}
 .contact-side img{max-width:220px}
 .phones{display:grid;gap:14px}
 .phones div{display:flex;align-items:center;gap:14px}
+.phones div > div{display:grid}
 .phones span{font-size:15px;color:var(--muted)}
 .phones a,.phones b{font:800 24px/1.2 var(--font-head);color:var(--navy);text-decoration:none}
-.avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--ink);flex-shrink:0;background:var(--sand)}
+.avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top center;flex-shrink:0;background:var(--sand)}
 .form{background:var(--paper);border:3px solid var(--ink);border-radius:var(--radius-l);padding:clamp(20px,3.5vw,34px);display:grid;gap:16px}
 .form .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .field{display:grid;gap:6px;min-width:0}
