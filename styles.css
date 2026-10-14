@@ -339,6 +339,7 @@ input[type="range"].calc-slider:focus-visible{outline:3px solid var(--honey);out
 .calc2-tab[aria-pressed="true"]{background:var(--navy);color:var(--cream)}
 .calc2-tab:focus-visible{outline:3px solid var(--honey);outline-offset:3px}
 .calc2-panel{display:flex;flex-wrap:wrap;gap:28px;align-items:stretch}
+.calc2-panel[hidden]{display:none}
 .calc2-inputs{flex:1 1 440px;background:var(--paper);border:3px solid var(--ink);border-radius:var(--radius-l);padding:clamp(22px,3.5vw,36px);display:flex;flex-direction:column;gap:26px;box-shadow:0 6px 0 var(--ink)}
 .calc2-results{flex:1 1 360px;background:var(--navy);color:var(--cream);border:3px solid var(--ink);border-radius:var(--radius-l);padding:clamp(22px,3.5vw,36px);display:flex;flex-direction:column;gap:22px}
 .calc2-field{display:flex;flex-direction:column;gap:8px}
